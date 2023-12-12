@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Driver Results</h1>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Driver ID</th>
+            <th scope="col">Driver Name</th>
+            <th scope="col">Car Model</th>
+            {% for course_id in ['A', 'B', 'C', 'D', 'E', 'F'] %}
+            <th scope="col">{{ course_id }}</th>
+            {% endfor %}
+            <th scope="col">Overall Result</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for driver in drivers %}
+        <tr>
+            <td>{{ driver.driver_id }}</td>
+            <td>{{ driver.full_name }}</td>
+            <td>{{ driver.car_model }}</td>
+            {% for course_id in ['A', 'B', 'C', 'D', 'E', 'F'] %}
+            <td>{{ '%.2f'|format(driver.courses.get(course_id, 'NQ')) if driver.courses.get(course_id) not in ['NQ', 'DNF'] else driver.courses.get(course_id) }}</td>
+            {% endfor %}
+            <td>
+                {{ '%.2f'|format(driver.overall) if driver.overall not in ['NQ', 'DNF'] else driver.overall }}
+                {% if driver.driver_id == top_ids[0] %}
+                <span class="badge bg-primary">CUP</span>
+                {% elif driver.driver_id in top_ids[1:] %}
+                <span class="badge bg-success">PRIZE</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}
+
+

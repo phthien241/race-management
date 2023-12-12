@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Driver List</h2>
+    
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Surname</th>
+                <th scope="col">Date of Birth</th>
+                <th scope="col">Age</th>
+                <th scope="col">Caregiver</th>
+                <th scope="col">Car</th>
+                <th scope="col">Drive Class</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for driver in driver_list %}
+            <tr>
+                {% for field in driver %}
+                {% if loop.index0 == 0 %}
+                <td>{{ field }}</td>
+                {% elif loop.index0 == 1 %}
+                {% if driver[4] and driver[4] < 25 %}
+                <td class="table-warning"><a href="{{ url_for('driverdetails', driver_id=driver[0]) }}">{{ field }}</a></td>
+                {% else %}
+                <td><a href="{{ url_for('driverdetails', driver_id=driver[0]) }}">{{ field }}</a></td>
+                {% endif %}
+                {% else %}
+                <td>{{ field }}</td>
+                {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+

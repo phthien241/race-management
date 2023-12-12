@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Junior Driver List</h2>
+    
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>First Name</th>
+                <th>Surname</th>
+                <th>Age</th>
+                <th>Caregiver</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for driver in junior_drivers %}
+            <tr>
+                <td>{{ driver.first_name }}</td>
+                <td>{{ driver.surname }}</td>
+                <td>{{ driver.age }}</td>
+                <td>{{ driver.caregiver }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

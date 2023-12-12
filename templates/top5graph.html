@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<body>
+    <h1>Bar Graph</h1>
+    <div id="myHBarPlot" style="width:100%; max-width:960px;"></div>
+    <script>
+        var names = {{ names|tojson|safe }};
+        var scores = {{ scores|tojson|safe }};
+        const data = [{ x: scores,  y: names,  type:"bar", orientation:"h", marker: {color:"blue"} }]; 
+        const layout = {  
+            xaxis: {title: "Scores"},
+            title: "Top 5 Drivers"
+        };
+        Plotly.newPlot("myHBarPlot", data, layout);
+
+    </script>
+
+</body>
+</html>
+
+{% endblock %}
